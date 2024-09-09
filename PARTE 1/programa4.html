@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación de semáforo</title>
+    <style>
+        #semaforo {
+            width: 100px;
+            height: 290px;
+            border: 2px solid #000;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px auto;
+            padding-top: 10px;
+        }
+        .luz {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 10px auto;
+            background-color: gray;
+        }
+        .verde { background-color: green; }
+        .amarillo { background-color: yellow; }
+        .rojo { background-color: red; }
+    </style>
+</head>
+<body>
+    <h1>Simulación de Semáforo</h1>
+    <div id="semaforo">
+        <div id="verde" class="luz"></div>
+        <div id="amarillo" class="luz"></div>
+        <div id="rojo" class="luz"></div>
+    </div>
+
+    <script>
+        const DURACION_VERDE = 5000;  // 5 segundos
+        const DURACION_AMARILLO = 2000; // 2 segundos
+        const DURACION_ROJO = 5000;    // 5 segundos
+
+        let estadoActual = 'verde';
+
+        function mostrarEstado(estado) {
+            // Limpiar todas las luces
+            document.getElementById('verde').classList.remove('verde');
+            document.getElementById('amarillo').classList.remove('amarillo');
+            document.getElementById('rojo').classList.remove('rojo');
+
+            if (estado === 'verde') {
+                document.getElementById('verde').classList.add('verde');
+                setTimeout(cambiarEstado, DURACION_VERDE);
+            } else if (estado === 'amarillo') {
+                document.getElementById('amarillo').classList.add('amarillo');
+                setTimeout(cambiarEstado, DURACION_AMARILLO);
+            } else if (estado === 'rojo') {
+                document.getElementById('rojo').classList.add('rojo');
+                setTimeout(cambiarEstado, DURACION_ROJO);
+            }
+        }
+
+        // Función para cambiar el estado del semáforo
+        function cambiarEstado() {
+            if (estadoActual === 'verde') {
+                estadoActual = 'amarillo';
+            } else if (estadoActual === 'amarillo') {
+                estadoActual = 'rojo';
+            } else if (estadoActual === 'rojo') {
+                estadoActual = 'verde';
+            }
+            mostrarEstado(estadoActual);
+        }
+
+        // Iniciar el ciclo del semáforo
+        mostrarEstado(estadoActual);
+    </script>
+</body>
+</html>
